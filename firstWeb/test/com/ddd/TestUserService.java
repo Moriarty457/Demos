@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.ddd.dao.UserDao;
+import com.ddd.dao.UserDaoImpl;
 import com.ddd.domain.User;
 import com.ddd.service.UserService;
 
@@ -23,7 +23,7 @@ public class TestUserService {
     private UserService userService;
 
     @Autowired
-    private UserDao userDao;
+    private UserDaoImpl userDaoImpl;
 
     @Test
     public void test_hasMatchUser (){
@@ -47,7 +47,7 @@ public class TestUserService {
         User user = userService.findUserByUserName("superman");
         user.setLastVisit(new Date());
         user.setLastIp("192.168.1.1");
-        userDao.update(user);
+        userDaoImpl.update(user);
     }
 
 
