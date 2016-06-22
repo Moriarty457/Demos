@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="con.ddd.mapping.UserMapper">
+
+    <resultMap id="userMap" type="com.ddd.domain.User">
+        <result column="user_id" jdbcType="DECIMAL" property="userId"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="credits" jdbcType="DECIMAL" property="credits"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="last_visit" jdbcType="TIMESTAMP" property="lastVisit"/>
+        <result column="last_ip" jdbcType="VARCHAR" property="lastIp"/>
+    </resultMap>
+
+
+    <select id="getUserById" parameterType="int" resultMap="userMap">
+        SELECT user_id,user_name,credits,password,last_visit,last_ip FROM t_user
+        WHERE user_id = #{id}
+    </select>
+
+    <select id="getCountByName"  resultType="Integer">
+        SELECT count(*) FROM t_user
+        WHERE user_name = #{userName}
+        AND password = #{password}
+    </select>
+
+    <select id="getUserByName" parameterType="String" resultMap="userMap">
+        SELECT user_id,user_name,credits,password,last_visit,last_ip FROM t_user
+        WHERE user_name = #{name}
+    </select>
+
+    <update id="update">
+        update t_user set
+        last_visit = #{lastVisit, jdbcType=TIMESTAMP},
+        last_ip = #{lastIp, jdbcType=VARCHAR},
+        credits = #{credits, jdbcType=DECIMAL}
+        where user_id = #{userId,jdbcType=DECIMAL}
+    </update>
+
+</mapper>        
+
+
